@@ -1,0 +1,1159 @@
+import React, { useState } from 'react';
+import { FileDown, Download } from 'lucide-react';
+
+const JSDocsPDF = () => {
+  const [generating, setGenerating] = useState(false);
+
+  const generatePDF = () => {
+    setGenerating(true);
+    
+    const content = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @page { margin: 2cm; }
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      line-height: 1.6; 
+      color: #333;
+      font-size: 11pt;
+    }
+    h1 { 
+      color: #2563eb; 
+      border-bottom: 3px solid #2563eb; 
+      padding-bottom: 10px;
+      page-break-before: always;
+      margin-top: 30px;
+    }
+    h1:first-of-type { page-break-before: avoid; margin-top: 0; }
+    h2 { 
+      color: #1e40af; 
+      border-bottom: 2px solid #93c5fd;
+      padding-bottom: 5px;
+      margin-top: 25px;
+    }
+    h3 { 
+      color: #1e3a8a; 
+      margin-top: 20px;
+    }
+    h4 { 
+      color: #1e293b;
+      margin-top: 15px;
+      font-style: italic;
+    }
+    code { 
+      background: #f1f5f9; 
+      padding: 2px 6px; 
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 10pt;
+    }
+    pre { 
+      background: #1e293b; 
+      color: #e2e8f0; 
+      padding: 15px; 
+      border-radius: 5px; 
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 9pt;
+      line-height: 1.4;
+      page-break-inside: avoid;
+    }
+    pre code {
+      background: transparent;
+      color: #e2e8f0;
+      padding: 0;
+    }
+    .section { 
+      margin-bottom: 30px; 
+      page-break-inside: avoid;
+    }
+    .keyword { color: #c792ea; }
+    .string { color: #c3e88d; }
+    .comment { color: #546e7a; font-style: italic; }
+    .function { color: #82aaff; }
+    ul, ol { margin-left: 20px; }
+    li { margin-bottom: 8px; }
+    .note {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 10px 15px;
+      margin: 15px 0;
+      page-break-inside: avoid;
+    }
+    .important {
+      background: #fee2e2;
+      border-left: 4px solid #ef4444;
+      padding: 10px 15px;
+      margin: 15px 0;
+      font-weight: bold;
+      page-break-inside: avoid;
+    }
+    .tip {
+      background: #dbeafe;
+      border-left: 4px solid #3b82f6;
+      padding: 10px 15px;
+      margin: 15px 0;
+      page-break-inside: avoid;
+    }
+    .work-example {
+      background: #d1fae5;
+      border-left: 4px solid #10b981;
+      padding: 15px;
+      margin: 15px 0;
+      page-break-inside: avoid;
+    }
+    .work-example h4 {
+      color: #065f46;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      font-weight: bold;
+    }
+    .cover {
+      text-align: center;
+      padding: 100px 0;
+      page-break-after: always;
+    }
+    .cover h1 {
+      font-size: 48pt;
+      color: #1e40af;
+      border: none;
+      margin-top: 0;
+      page-break-before: avoid;
+    }
+    .cover p {
+      font-size: 18pt;
+      color: #64748b;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>Documentación Completa</h1>
+  <h2 style="color: #64748b; border: none;">JavaScript & TypeScript</h2>
+  <p>Guía con Ejemplos Reales de Trabajo</p>
+  <p style="font-size: 14pt; margin-top: 50px;">© 2024 - Documentación Técnica</p>
+</div>
+
+<h1>JAVASCRIPT - EJEMPLOS REALES DE TRABAJO</h1>
+
+<div class="section">
+<h2>1. SISTEMA DE AUTENTICACIÓN (Login Real)</h2>
+
+<div class="work-example">
+<h4>🏢 Caso Real: Sistema de Login de E-Commerce</h4>
+<p>Combina: <strong>Promesas, Async/Await, Try-Catch, LocalStorage, Clases, Objetos</strong></p>
+</div>
+
+<pre><code><span class="comment">// auth.js - Sistema de autenticación</span>
+<span class="keyword">class</span> AuthService {
+    <span class="keyword">constructor</span>() {
+        <span class="keyword">this</span>.apiUrl = <span class="string">'https://api.mitienda.com'</span>;
+        <span class="keyword">this</span>.tokenKey = <span class="string">'auth_token'</span>;
+    }
+    
+    <span class="comment">// Login - Combina async/await + try-catch + fetch</span>
+    <span class="keyword">async</span> login(email, password) {
+        <span class="keyword">try</span> {
+            <span class="comment">// Validación con RegEx</span>
+            <span class="keyword">const</span> emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+            <span class="keyword">if</span> (!emailRegex.test(email)) {
+                <span class="keyword">throw new</span> Error(<span class="string">'Email inválido'</span>);
+            }
+            
+            <span class="comment">// Petición al servidor</span>
+            <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(\`\${<span class="keyword">this</span>.apiUrl}/auth/login\`, {
+                method: <span class="string">'POST'</span>,
+                headers: {
+                    <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>
+                },
+                body: JSON.stringify({ email, password })
+            });
+            
+            <span class="comment">// Manejo de respuesta</span>
+            <span class="keyword">if</span> (!response.ok) {
+                <span class="keyword">const</span> error = <span class="keyword">await</span> response.json();
+                <span class="keyword">throw new</span> Error(error.message || <span class="string">'Error al iniciar sesión'</span>);
+            }
+            
+            <span class="keyword">const</span> data = <span class="keyword">await</span> response.json();
+            
+            <span class="comment">// Guardar token y usuario</span>
+            <span class="keyword">this</span>.saveToken(data.token);
+            <span class="keyword">this</span>.saveUser(data.user);
+            
+            <span class="keyword">return</span> {
+                success: <span class="keyword">true</span>,
+                user: data.user
+            };
+            
+        } <span class="keyword">catch</span> (error) {
+            console.error(<span class="string">'Login error:'</span>, error);
+            <span class="keyword">return</span> {
+                success: <span class="keyword">false</span>,
+                message: error.message
+            };
+        }
+    }
+    
+    <span class="comment">// Guardar token - usa localStorage</span>
+    saveToken(token) {
+        localStorage.setItem(<span class="keyword">this</span>.tokenKey, token);
+    }
+    
+    <span class="comment">// Obtener token - maneja null con ??</span>
+    getToken() {
+        <span class="keyword">return</span> localStorage.getItem(<span class="keyword">this</span>.tokenKey) ?? <span class="keyword">null</span>;
+    }
+    
+    <span class="comment">// Guardar usuario - usa JSON.stringify</span>
+    saveUser(user) {
+        localStorage.setItem(<span class="string">'user'</span>, JSON.stringify(user));
+    }
+    
+    <span class="comment">// Obtener usuario - usa JSON.parse + optional chaining</span>
+    getUser() {
+        <span class="keyword">const</span> userStr = localStorage.getItem(<span class="string">'user'</span>);
+        <span class="keyword">return</span> userStr ? JSON.parse(userStr) : <span class="keyword">null</span>;
+    }
+    
+    <span class="comment">// Verificar si está autenticado</span>
+    isAuthenticated() {
+        <span class="keyword">const</span> token = <span class="keyword">this</span>.getToken();
+        <span class="keyword">return</span> token !== <span class="keyword">null</span> && !<span class="keyword">this</span>.isTokenExpired(token);
+    }
+    
+    <span class="comment">// Decodificar JWT (simplificado)</span>
+    decodeToken(token) {
+        <span class="keyword">try</span> {
+            <span class="keyword">const</span> base64 = token.split(<span class="string">'.'</span>)[1];
+            <span class="keyword">const</span> decoded = atob(base64);
+            <span class="keyword">return</span> JSON.parse(decoded);
+        } <span class="keyword">catch</span> {
+            <span class="keyword">return null</span>;
+        }
+    }
+    
+    <span class="comment">// Verificar expiración del token</span>
+    isTokenExpired(token) {
+        <span class="keyword">const</span> decoded = <span class="keyword">this</span>.decodeToken(token);
+        <span class="keyword">if</span> (!decoded?.exp) <span class="keyword">return true</span>;
+        
+        <span class="keyword">return</span> Date.now() >= decoded.exp * 1000;
+    }
+    
+    <span class="comment">// Logout</span>
+    logout() {
+        localStorage.removeItem(<span class="keyword">this</span>.tokenKey);
+        localStorage.removeItem(<span class="string">'user'</span>);
+        window.location.href = <span class="string">'/login'</span>;
+    }
+}
+
+<span class="comment">// Uso en la aplicación</span>
+<span class="keyword">const</span> auth = <span class="keyword">new</span> AuthService();
+
+<span class="comment">// Formulario de login</span>
+document.querySelector(<span class="string">'#loginForm'</span>).addEventListener(<span class="string">'submit'</span>, <span class="keyword">async</span> (e) => {
+    e.preventDefault();
+    
+    <span class="keyword">const</span> email = document.querySelector(<span class="string">'#email'</span>).value;
+    <span class="keyword">const</span> password = document.querySelector(<span class="string">'#password'</span>).value;
+    
+    <span class="comment">// Mostrar loading</span>
+    <span class="keyword">const</span> button = e.target.querySelector(<span class="string">'button'</span>);
+    button.disabled = <span class="keyword">true</span>;
+    button.textContent = <span class="string">'Iniciando sesión...'</span>;
+    
+    <span class="keyword">const</span> result = <span class="keyword">await</span> auth.login(email, password);
+    
+    <span class="keyword">if</span> (result.success) {
+        <span class="comment">// Redirigir al dashboard</span>
+        window.location.href = <span class="string">'/dashboard'</span>;
+    } <span class="keyword">else</span> {
+        <span class="comment">// Mostrar error</span>
+        alert(result.message);
+        button.disabled = <span class="keyword">false</span>;
+        button.textContent = <span class="string">'Iniciar Sesión'</span>;
+    }
+});</code></pre>
+</div>
+
+<div class="section">
+<h2>2. CARRITO DE COMPRAS (E-Commerce Real)</h2>
+
+<div class="work-example">
+<h4>🏢 Caso Real: Carrito de Compras con Persistencia</h4>
+<p>Combina: <strong>Arrays (map, filter, reduce), Objetos, Spread Operator, localStorage</strong></p>
+</div>
+
+<pre><code><span class="comment">// cart.js - Sistema de carrito de compras</span>
+<span class="keyword">class</span> ShoppingCart {
+    <span class="keyword">constructor</span>() {
+        <span class="comment">// Cargar carrito desde localStorage o iniciar vacío</span>
+        <span class="keyword">this</span>.items = <span class="keyword">this</span>.loadCart() || [];
+        <span class="keyword">this</span>.taxRate = 0.21; <span class="comment">// IVA 21%</span>
+    }
+    
+    <span class="comment">// Agregar producto (combina find, spread, operador ternario)</span>
+    addItem(product, quantity = 1) {
+        <span class="keyword">const</span> existingItem = <span class="keyword">this</span>.items.find(item => item.id === product.id);
+        
+        <span class="keyword">if</span> (existingItem) {
+            <span class="comment">// Actualizar cantidad si ya existe</span>
+            <span class="keyword">this</span>.items = <span class="keyword">this</span>.items.map(item =>
+                item.id === product.id
+                    ? { ...item, quantity: item.quantity + quantity }
+                    : item
+            );
+        } <span class="keyword">else</span> {
+            <span class="comment">// Agregar nuevo producto</span>
+            <span class="keyword">this</span>.items.push({
+                ...product,
+                quantity,
+                addedAt: <span class="keyword">new</span> Date().toISOString()
+            });
+        }
+        
+        <span class="keyword">this</span>.saveCart();
+        <span class="keyword">this</span>.notifyUpdate();
+    }
+    
+    <span class="comment">// Remover producto (usa filter)</span>
+    removeItem(productId) {
+        <span class="keyword">this</span>.items = <span class="keyword">this</span>.items.filter(item => item.id !== productId);
+        <span class="keyword">this</span>.saveCart();
+        <span class="keyword">this</span>.notifyUpdate();
+    }
+    
+    <span class="comment">// Actualizar cantidad</span>
+    updateQuantity(productId, quantity) {
+        <span class="keyword">if</span> (quantity <= 0) {
+            <span class="keyword">this</span>.removeItem(productId);
+            <span class="keyword">return</span>;
+        }
+        
+        <span class="keyword">this</span>.items = <span class="keyword">this</span>.items.map(item =>
+            item.id === productId
+                ? { ...item, quantity }
+                : item
+        );
+        
+        <span class="keyword">this</span>.saveCart();
+        <span class="keyword">this</span>.notifyUpdate();
+    }
+    
+    <span class="comment">// Calcular subtotal (usa reduce)</span>
+    getSubtotal() {
+        <span class="keyword">return</span> <span class="keyword">this</span>.items.reduce((total, item) => {
+            <span class="keyword">return</span> total + (item.price * item.quantity);
+        }, 0);
+    }
+    
+    <span class="comment">// Calcular impuestos</span>
+    getTax() {
+        <span class="keyword">return</span> <span class="keyword">this</span>.getSubtotal() * <span class="keyword">this</span>.taxRate;
+    }
+    
+    <span class="comment">// Calcular total</span>
+    getTotal() {
+        <span class="keyword">return</span> <span class="keyword">this</span>.getSubtotal() + <span class="keyword">this</span>.getTax();
+    }
+    
+    <span class="comment">// Obtener resumen del carrito</span>
+    getSummary() {
+        <span class="keyword">return</span> {
+            itemCount: <span class="keyword">this</span>.items.length,
+            totalItems: <span class="keyword">this</span>.items.reduce((sum, item) => sum + item.quantity, 0),
+            subtotal: <span class="keyword">this</span>.getSubtotal(),
+            tax: <span class="keyword">this</span>.getTax(),
+            total: <span class="keyword">this</span>.getTotal(),
+            items: <span class="keyword">this</span>.items
+        };
+    }
+    
+    <span class="comment">// Aplicar cupón de descuento</span>
+    applyCoupon(couponCode) {
+        <span class="keyword">const</span> coupons = {
+            <span class="string">'DESCUENTO10'</span>: 0.10,
+            <span class="string">'VERANO20'</span>: 0.20,
+            <span class="string">'NAVIDAD25'</span>: 0.25
+        };
+        
+        <span class="keyword">const</span> discount = coupons[couponCode.toUpperCase()];
+        
+        <span class="keyword">if</span> (!discount) {
+            <span class="keyword">return</span> {
+                success: <span class="keyword">false</span>,
+                message: <span class="string">'Cupón inválido'</span>
+            };
+        }
+        
+        <span class="keyword">const</span> discountAmount = <span class="keyword">this</span>.getSubtotal() * discount;
+        
+        <span class="keyword">return</span> {
+            success: <span class="keyword">true</span>,
+            discount: discount * 100,
+            discountAmount,
+            newTotal: <span class="keyword">this</span>.getTotal() - discountAmount
+        };
+    }
+    
+    <span class="comment">// Guardar en localStorage</span>
+    saveCart() {
+        localStorage.setItem(<span class="string">'shopping_cart'</span>, JSON.stringify(<span class="keyword">this</span>.items));
+    }
+    
+    <span class="comment">// Cargar desde localStorage</span>
+    loadCart() {
+        <span class="keyword">const</span> cartStr = localStorage.getItem(<span class="string">'shopping_cart'</span>);
+        <span class="keyword">return</span> cartStr ? JSON.parse(cartStr) : [];
+    }
+    
+    <span class="comment">// Limpiar carrito</span>
+    clear() {
+        <span class="keyword">this</span>.items = [];
+        <span class="keyword">this</span>.saveCart();
+        <span class="keyword">this</span>.notifyUpdate();
+    }
+    
+    <span class="comment">// Notificar cambios (Event Emitter pattern)</span>
+    notifyUpdate() {
+        <span class="keyword">const</span> event = <span class="keyword">new</span> CustomEvent(<span class="string">'cart-updated'</span>, {
+            detail: <span class="keyword">this</span>.getSummary()
+        });
+        window.dispatchEvent(event);
+    }
+}
+
+<span class="comment">// Uso en la aplicación</span>
+<span class="keyword">const</span> cart = <span class="keyword">new</span> ShoppingCart();
+
+<span class="comment">// Agregar productos al carrito</span>
+document.querySelectorAll(<span class="string">'.add-to-cart-btn'</span>).forEach(button => {
+    button.addEventListener(<span class="string">'click'</span>, () => {
+        <span class="keyword">const</span> productCard = button.closest(<span class="string">'.product-card'</span>);
+        <span class="keyword">const</span> product = {
+            id: productCard.dataset.productId,
+            name: productCard.querySelector(<span class="string">'.product-name'</span>).textContent,
+            price: parseFloat(productCard.dataset.price),
+            image: productCard.querySelector(<span class="string">'img'</span>).src
+        };
+        
+        cart.addItem(product);
+        
+        <span class="comment">// Mostrar notificación</span>
+        showNotification(\`\${product.name} agregado al carrito\`);
+    });
+});
+
+<span class="comment">// Escuchar actualizaciones del carrito</span>
+window.addEventListener(<span class="string">'cart-updated'</span>, (e) => {
+    <span class="keyword">const</span> { totalItems, total } = e.detail;
+    
+    <span class="comment">// Actualizar badge del carrito</span>
+    document.querySelector(<span class="string">'.cart-badge'</span>).textContent = totalItems;
+    
+    <span class="comment">// Actualizar total en header</span>
+    document.querySelector(<span class="string">'.cart-total'</span>).textContent = 
+        \`$\${total.toFixed(2)}\`;
+});
+
+<span class="comment">// Aplicar cupón</span>
+document.querySelector(<span class="string">'#applyCoupon'</span>).addEventListener(<span class="string">'click'</span>, () => {
+    <span class="keyword">const</span> couponCode = document.querySelector(<span class="string">'#couponInput'</span>).value;
+    <span class="keyword">const</span> result = cart.applyCoupon(couponCode);
+    
+    <span class="keyword">if</span> (result.success) {
+        alert(\`¡Cupón aplicado! Descuento del \${result.discount}%\`);
+    } <span class="keyword">else</span> {
+        alert(result.message);
+    }
+});</code></pre>
+</div>
+
+<div class="section">
+<h2>3. VALIDACIÓN DE FORMULARIOS (Sistema Real)</h2>
+
+<div class="work-example">
+<h4>🏢 Caso Real: Formulario de Registro con Validación Completa</h4>
+<p>Combina: <strong>RegEx, Objetos, Clases, Eventos del DOM, Mensajes de Error</strong></p>
+</div>
+
+<pre><code><span class="comment">// validator.js - Sistema de validación robusto</span>
+<span class="keyword">class</span> FormValidator {
+    <span class="keyword">constructor</span>(formId) {
+        <span class="keyword">this</span>.form = document.querySelector(formId);
+        <span class="keyword">this</span>.errors = {};
+        <span class="keyword">this</span>.rules = {
+            email: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,
+            phone: /^\\+?[1-9]\\d{1,14}$/, <span class="comment">// Formato internacional</span>
+            password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/,
+            zipCode: /^\\d{5}$/,
+            creditCard: /^\\d{16}$/
+        };
+        
+        <span class="keyword">this</span>.init();
+    }
+    
+    init() {
+        <span class="comment">// Validar en tiempo real</span>
+        <span class="keyword">this</span>.form.querySelectorAll(<span class="string">'input, textarea, select'</span>).forEach(field => {
+            field.addEventListener(<span class="string">'blur'</span>, () => <span class="keyword">this</span>.validateField(field));
+            field.addEventListener(<span class="string">'input'</span>, () => <span class="keyword">this</span>.clearError(field));
+        });
+        
+        <span class="comment">// Validar al enviar</span>
+        <span class="keyword">this</span>.form.addEventListener(<span class="string">'submit'</span>, (e) => {
+            e.preventDefault();
+            <span class="keyword">this</span>.validateForm();
+        });
+    }
+    
+    validateField(field) {
+        <span class="keyword">const</span> { name, value, type, required } = field;
+        <span class="keyword">let</span> error = <span class="keyword">null</span>;
+        
+        <span class="comment">// Validar campo requerido</span>
+        <span class="keyword">if</span> (required && !value.trim()) {
+            error = <span class="string">'Este campo es obligatorio'</span>;
+        }
+        
+        <span class="comment">// Validar email</span>
+        <span class="keyword">else if</span> (name === <span class="string">'email'</span> && value && !<span class="keyword">this</span>.rules.email.test(value)) {
+            error = <span class="string">'Email inválido'</span>;
+        }
+        
+        <span class="comment">// Validar teléfono</span>
+        <span class="keyword">else if</span> (name === <span class="string">'phone'</span> && value && !<span class="keyword">this</span>.rules.phone.test(value)) {
+            error = <span class="string">'Teléfono inválido. Use formato internacional'</span>;
+        }
+        
+        <span class="comment">// Validar contraseña</span>
+        <span class="keyword">else if</span> (name === <span class="string">'password'</span> && value && !<span class="keyword">this</span>.rules.password.test(value)) {
+            error = <span class="string">'La contraseña debe tener min. 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial'</span>;
+        }
+        
+        <span class="comment">// Confirmar contraseña</span>
+        <span class="keyword">else if</span> (name === <span class="string">'confirmPassword'</span>) {
+            <span class="keyword">const</span> password = <span class="keyword">this</span>.form.querySelector(<span class="string">'[name="password"]'</span>).value;
+            <span class="keyword">if</span> (value !== password) {
+                error = <span class="string">'Las contraseñas no coinciden'</span>;
+            }
+        }
+        
+        <span class="comment">// Validar edad mínima</span>
+        <span class="keyword">else if</span> (name === <span class="string">'birthdate'</span> && value) {
+            <span class="keyword">const</span> age = <span class="keyword">this</span>.calculateAge(<span class="keyword">new</span> Date(value));
+            <span class="keyword">if</span> (age < 18) {
+                error = <span class="string">'Debes ser mayor de 18 años'</span>;
+            }
+        }
+        
+        <span class="comment">// Validar longitud mínima</span>
+        <span class="keyword">else if</span> (field.minLength && value.length < field.minLength) {
+            error = \`Mínimo \${field.minLength} caracteres\`;
+        }
+        
+        <span class="comment">// Validar longitud máxima</span>
+        <span class="keyword">else if</span> (field.maxLength && value.length > field.maxLength) {
+            error = \`Máximo \${field.maxLength} caracteres\`;
+        }
+        
+        <span class="keyword">if</span> (error) {
+            <span class="keyword">this</span>.showError(field, error);
+            <span class="keyword">return false</span>;
+        } <span class="keyword">else</span> {
+            <span class="keyword">this</span>.clearError(field);
+            <span class="keyword">return true</span>;
+        }
+    }
+    
+    validateForm() {
+        <span class="keyword">this</span>.errors = {};
+        <span class="keyword">let</span> isValid = <span class="keyword">true</span>;
+        
+        <span class="comment">// Validar todos los campos</span>
+        <span class="keyword">this</span>.form.querySelectorAll(<span class="string">'input, textarea, select'</span>).forEach(field => {
+            <span class="keyword">if</span> (!<span class="keyword">this</span>.validateField(field)) {
+                isValid = <span class="keyword">false</span>;
+            }
+        });
+        
+        <span class="keyword">if</span> (isValid) {
+            <span class="keyword">this</span>.submitForm();
+        } <span class="keyword">else</span> {
+            <span class="comment">// Scroll al primer error</span>
+            <span class="keyword">const</span> firstError = <span class="keyword">this</span>.form.querySelector(<span class="string">'.error-message'</span>);
+            firstError?.scrollIntoView({ behavior: <span class="string">'smooth'</span>, block: <span class="string">'center'</span> });
+        }
+    }
+    
+    showError(field, message) {
+        <span class="keyword">this</span>.errors[field.name] = message;
+        
+        <span class="comment">// Agregar clase de error al campo</span>
+        field.classList.add(<span class="string">'error'</span>);
+        
+        <span class="comment">// Crear o actualizar mensaje de error</span>
+        <span class="keyword">let</span> errorDiv = field.parentElement.querySelector(<span class="string">'.error-message'</span>);
+        <span class="keyword">if</span> (!errorDiv) {
+            errorDiv = document.createElement(<span class="string">'div'</span>);
+            errorDiv.className = <span class="string">'error-message'</span>;
+            field.parentElement.appendChild(errorDiv);
+        }
+        errorDiv.textContent = message;
+    }
+    
+    clearError(field) {
+        field.classList.remove(<span class="string">'error'</span>);
+        <span class="keyword">const</span> errorDiv = field.parentElement.querySelector(<span class="string">'.error-message'</span>);
+        errorDiv?.remove();
+        <span class="keyword">delete</span> <span class="keyword">this</span>.errors[field.name];
+    }
+    
+    calculateAge(birthDate) {
+        <span class="keyword">const</span> today = <span class="keyword">new</span> Date();
+        <span class="keyword">let</span> age = today.getFullYear() - birthDate.getFullYear();
+        <span class="keyword">const</span> monthDiff = today.getMonth() - birthDate.getMonth();
+        
+        <span class="keyword">if</span> (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        
+        <span class="keyword">return</span> age;
+    }
+    
+    getFormData() {
+        <span class="keyword">const</span> formData = {};
+        <span class="keyword">const</span> data = <span class="keyword">new</span> FormData(<span class="keyword">this</span>.form);
+        
+        <span class="keyword">for</span> (<span class="keyword">const</span> [key, value] <span class="keyword">of</span> data.entries()) {
+            formData[key] = value;
+        }
+        
+        <span class="keyword">return</span> formData;
+    }
+    
+    <span class="keyword">async</span> submitForm() {
+        <span class="keyword">const</span> submitButton = <span class="keyword">this</span>.form.querySelector(<span class="string">'button[type="submit"]'</span>);
+        submitButton.disabled = <span class="keyword">true</span>;
+        submitButton.textContent = <span class="string">'Enviando...'</span>;
+        
+        <span class="keyword">try</span> {
+            <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(<span class="string">'/api/register'</span>, {
+                method: <span class="string">'POST'</span>,
+                headers: {
+                    <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>
+                },
+                body: JSON.stringify(<span class="keyword">this</span>.getFormData())
+            });
+            
+            <span class="keyword">const</span> result = <span class="keyword">await</span> response.json();
+            
+            <span class="keyword">if</span> (result.success) {
+                window.location.href = <span class="string">'/success'</span>;
+            } <span class="keyword">else</span> {
+                alert(<span class="string">'Error: '</span> + result.message);
+            }
+        } <span class="keyword">catch</span> (error) {
+            alert(<span class="string">'Error al enviar el formulario'</span>);
+        } <span class="keyword">finally</span> {
+            submitButton.disabled = <span class="keyword">false</span>;
+            submitButton.textContent = <span class="string">'Registrarse'</span>;
+        }
+    }
+}
+
+<span class="comment">// Inicializar validador</span>
+<span class="keyword">const</span> validator = <span class="keyword">new</span> FormValidator(<span class="string">'#registrationForm'</span>);</code></pre>
+</div>
+
+<div class="section">
+<h2>4. DASHBOARD CON DATOS EN TIEMPO REAL</h2>
+
+<div class="work-example">
+<h4>🏢 Caso Real: Dashboard de Ventas con Gráficos y Filtros</h4>
+<p>Combina: <strong>Async/Await, Promise.all, Array Methods (map, filter, reduce), Objetos</strong></p>
+</div>
+
+<pre><code><span class="comment">// dashboard.js - Sistema de dashboard empresarial</span>
+<span class="keyword">class</span> SalesDashboard {
+    <span class="keyword">constructor</span>() {
+        <span class="keyword">this</span>.apiUrl = <span class="string">'https://api.empresa.com'</span>;
+        <span class="keyword">this</span>.currentPeriod = <span class="string">'month'</span>; <span class="comment">// week, month, year</span>
+        <span class="keyword">this</span>.filters = {
+            dateFrom: <span class="keyword">null</span>,
+            dateTo: <span class="keyword">null</span>,
+            category: <span class="string">'all'</span>,
+            status: <span class="string">'all'</span>
+        };
+    }
+    
+    <span class="comment">// Inicializar dashboard</span>
+    <span class="keyword">async</span> init() {
+        <span class="keyword">try</span> {
+            <span class="comment">// Mostrar loading</span>
+            <span class="keyword">this</span>.showLoading();
+            
+            <span class="comment">// Cargar datos en paralelo con Promise.all</span>
+            <span class="keyword">const</span> [sales, products, customers, analytics] = <span class="keyword">await</span> Promise.all([
+                <span class="keyword">this</span>.fetchSales(),
+                <span class="keyword">this</span>.fetchProducts(),
+                <span class="keyword">this</span>.fetchCustomers(),
+                <span class="keyword">this</span>.fetchAnalytics()
+            ]);
+            
+            <span class="comment">// Guardar datos</span>
+            <span class="keyword">this</span>.sales = sales;
+            <span class="keyword">this</span>.products = products;
+            <span class="keyword">this</span>.customers = customers;
+            <span class="keyword">this</span>.analytics = analytics;
+            
+            <span class="comment">// Renderizar dashboard</span>
+            <span class="keyword">this</span>.renderKPIs();
+            <span class="keyword">this</span>.renderSalesChart();
+            <span class="keyword">this</span>.renderTopProducts();
+            <span class="keyword">this</span>.renderRecentOrders();
+            
+            <span class="comment">// Configurar filtros</span>
+            <span class="keyword">this</span>.setupFilters();
+            
+            <span class="comment">// Actualizar cada 5 minutos</span>
+            setInterval(() => <span class="keyword">this</span>.refreshData(), 5 * 60 * 1000);
+            
+        } <span class="keyword">catch</span> (error) {
+            console.error(<span class="string">'Error loading dashboard:'</span>, error);
+            <span class="keyword">this</span>.showError(<span class="string">'Error al cargar el dashboard'</span>);
+        } <span class="keyword">finally</span> {
+            <span class="keyword">this</span>.hideLoading();
+        }
+    }
+    
+    <span class="comment">// Obtener ventas con filtros</span>
+    <span class="keyword">async</span> fetchSales() {
+        <span class="keyword">const</span> params = <span class="keyword">new</span> URLSearchParams({
+            period: <span class="keyword">this</span>.currentPeriod,
+            ...(<span class="keyword">this</span>.filters.dateFrom && { from: <span class="keyword">this</span>.filters.dateFrom }),
+            ...(<span class="keyword">this</span>.filters.dateTo && { to: <span class="keyword">this</span>.filters.dateTo })
+        });
+        
+        <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(\`\${<span class="keyword">this</span>.apiUrl}/sales?\${params}\`);
+        <span class="keyword">return</span> response.json();
+    }
+    
+    <span class="keyword">async</span> fetchProducts() {
+        <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(\`\${<span class="keyword">this</span>.apiUrl}/products\`);
+        <span class="keyword">return</span> response.json();
+    }
+    
+    <span class="keyword">async</span> fetchCustomers() {
+        <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(\`\${<span class="keyword">this</span>.apiUrl}/customers\`);
+        <span class="keyword">return</span> response.json();
+    }
+    
+    <span class="keyword">async</span> fetchAnalytics() {
+        <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(\`\${<span class="keyword">this</span>.apiUrl}/analytics\`);
+        <span class="keyword">return</span> response.json();
+    }
+    
+    <span class="comment">// Calcular KPIs (Key Performance Indicators)</span>
+    calculateKPIs() {
+        <span class="comment">// Total de ventas (usa reduce)</span>
+        <span class="keyword">const</span> totalRevenue = <span class="keyword">this</span>.sales.reduce((sum, sale) => sum + sale.total, 0);
+        
+        <span class="comment">// Número de órdenes</span>
+        <span class="keyword">const</span> totalOrders = <span class="keyword">this</span>.sales.length;
+        
+        <span class="comment">// Ticket promedio</span>
+        <span class="keyword">const</span> averageOrderValue = totalRevenue / totalOrders;
+        
+        <span class="comment">// Clientes únicos (usa Set para eliminar duplicados)</span>
+        <span class="keyword">const</span> uniqueCustomers = <span class="keyword">new</span> Set(<span class="keyword">this</span>.sales.map(sale => sale.customerId));
+        
+        <span class="comment">// Tasa de conversión</span>
+        <span class="keyword">const</span> conversionRate = (totalOrders / <span class="keyword">this</span>.analytics.visitors) * 100;
+        
+        <span class="comment">// Comparar con período anterior</span>
+        <span class="keyword">const</span> previousRevenue = <span class="keyword">this</span>.analytics.previousPeriod.revenue;
+        <span class="keyword">const</span> revenueGrowth = ((totalRevenue - previousRevenue) / previousRevenue) * 100;
+        
+        <span class="keyword">return</span> {
+            totalRevenue,
+            totalOrders,
+            averageOrderValue,
+            uniqueCustomers: uniqueCustomers.size,
+            conversionRate,
+            revenueGrowth
+        };
+    }
+    
+    <span class="comment">// Renderizar KPIs</span>
+    renderKPIs() {
+        <span class="keyword">const</span> kpis = <span class="keyword">this</span>.calculateKPIs();
+        
+        document.querySelector(<span class="string">'#totalRevenue'</span>).textContent = 
+            <span class="keyword">this</span>.formatCurrency(kpis.totalRevenue);
+        
+        document.querySelector(<span class="string">'#totalOrders'</span>).textContent = 
+            kpis.totalOrders.toLocaleString();
+        
+        document.querySelector(<span class="string">'#avgOrderValue'</span>).textContent = 
+            <span class="keyword">this</span>.formatCurrency(kpis.averageOrderValue);
+        
+        document.querySelector(<span class="string">'#uniqueCustomers'</span>).textContent = 
+            kpis.uniqueCustomers.toLocaleString();
+        
+        <span class="comment">// Mostrar crecimiento con color</span>
+        <span class="keyword">const</span> growthEl = document.querySelector(<span class="string">'#revenueGrowth'</span>);
+        growthEl.textContent = \`\${kpis.revenueGrowth.toFixed(1)}%\`;
+        growthEl.className = kpis.revenueGrowth >= 0 ? <span class="string">'positive'</span> : <span class="string">'negative'</span>;
+    }
+    
+    <span class="comment">// Obtener productos más vendidos</span>
+    getTopProducts(limit = 5) {
+        <span class="comment">// Contar ventas por producto</span>
+        <span class="keyword">const</span> productSales = <span class="keyword">this</span>.sales.reduce((acc, sale) => {
+            sale.items.forEach(item => {
+                <span class="keyword">if</span> (!acc[item.productId]) {
+                    acc[item.productId] = {
+                        productId: item.productId,
+                        name: item.productName,
+                        quantity: 0,
+                        revenue: 0
+                    };
+                }
+                acc[item.productId].quantity += item.quantity;
+                acc[item.productId].revenue += item.price * item.quantity;
+            });
+            <span class="keyword">return</span> acc;
+        }, {});
+        
+        <span class="comment">// Convertir a array y ordenar</span>
+        <span class="keyword">return</span> Object.values(productSales)
+            .sort((a, b) => b.revenue - a.revenue)
+            .slice(0, limit);
+    }
+    
+    <span class="comment">// Renderizar top productos</span>
+    renderTopProducts() {
+        <span class="keyword">const</span> topProducts = <span class="keyword">this</span>.getTopProducts();
+        <span class="keyword">const</span> container = document.querySelector(<span class="string">'#topProducts'</span>);
+        
+        container.innerHTML = topProducts.map((product, index) => \`
+            <div class="product-item">
+                <span class="rank">\${index + 1}</span>
+                <div class="product-info">
+                    <h4>\${product.name}</h4>
+                    <p>\${product.quantity} unidades vendidas</p>
+                </div>
+                <span class="revenue">\${<span class="keyword">this</span>.formatCurrency(product.revenue)}</span>
+            </div>
+        \`).join(<span class="string">''</span>);
+    }
+    
+    <span class="comment">// Agrupar ventas por fecha</span>
+    groupSalesByDate() {
+        <span class="keyword">const</span> grouped = <span class="keyword">this</span>.sales.reduce((acc, sale) => {
+            <span class="keyword">const</span> date = sale.date.split(<span class="string">'T'</span>)[0]; <span class="comment">// YYYY-MM-DD</span>
+            
+            <span class="keyword">if</span> (!acc[date]) {
+                acc[date] = {
+                    date,
+                    revenue: 0,
+                    orders: 0
+                };
+            }
+            
+            acc[date].revenue += sale.total;
+            acc[date].orders += 1;
+            
+            <span class="keyword">return</span> acc;
+        }, {});
+        
+        <span class="comment">// Convertir a array y ordenar por fecha</span>
+        <span class="keyword">return</span> Object.values(grouped)
+            .sort((a, b) => <span class="keyword">new</span> Date(a.date) - <span class="keyword">new</span> Date(b.date));
+    }
+    
+    <span class="comment">// Renderizar gráfico de ventas</span>
+    renderSalesChart() {
+        <span class="keyword">const</span> salesByDate = <span class="keyword">this</span>.groupSalesByDate();
+        
+        <span class="comment">// Preparar datos para el gráfico</span>
+        <span class="keyword">const</span> labels = salesByDate.map(item => <span class="keyword">this</span>.formatDate(item.date));
+        <span class="keyword">const</span> revenues = salesByDate.map(item => item.revenue);
+        
+        <span class="comment">// Aquí usarías una librería como Chart.js</span>
+        <span class="comment">// Este es un ejemplo simplificado</span>
+        console.log(<span class="string">'Chart data:'</span>, { labels, revenues });
+    }
+    
+    <span class="comment">// Filtrar ventas</span>
+    applyFilters() {
+        <span class="keyword">let</span> filtered = [...<span class="keyword">this</span>.sales];
+        
+        <span class="comment">// Filtrar por categoría</span>
+        <span class="keyword">if</span> (<span class="keyword">this</span>.filters.category !== <span class="string">'all'</span>) {
+            filtered = filtered.filter(sale =>
+                sale.items.some(item => item.category === <span class="keyword">this</span>.filters.category)
+            );
+        }
+        
+        <span class="comment">// Filtrar por estado</span>
+        <span class="keyword">if</span> (<span class="keyword">this</span>.filters.status !== <span class="string">'all'</span>) {
+            filtered = filtered.filter(sale => sale.status === <span class="keyword">this</span>.filters.status);
+        }
+        
+        <span class="comment">// Filtrar por rango de fechas</span>
+        <span class="keyword">if</span> (<span class="keyword">this</span>.filters.dateFrom) {
+            <span class="keyword">const</span> fromDate = <span class="keyword">new</span> Date(<span class="keyword">this</span>.filters.dateFrom);
+            filtered = filtered.filter(sale => <span class="keyword">new</span> Date(sale.date) >= fromDate);
+        }
+        
+        <span class="keyword">if</span> (<span class="keyword">this</span>.filters.dateTo) {
+            <span class="keyword">const</span> toDate = <span class="keyword">new</span> Date(<span class="keyword">this</span>.filters.dateTo);
+            filtered = filtered.filter(sale => <span class="keyword">new</span> Date(sale.date) <= toDate);
+        }
+        
+        <span class="keyword">return</span> filtered;
+    }
+    
+    <span class="comment">// Configurar event listeners para filtros</span>
+    setupFilters() {
+        document.querySelector(<span class="string">'#categoryFilter'</span>).addEventListener(<span class="string">'change'</span>, (e) => {
+            <span class="keyword">this</span>.filters.category = e.target.value;
+            <span class="keyword">this</span>.updateDashboard();
+        });
+        
+        document.querySelector(<span class="string">'#statusFilter'</span>).addEventListener(<span class="string">'change'</span>, (e) => {
+            <span class="keyword">this</span>.filters.status = e.target.value;
+            <span class="keyword">this</span>.updateDashboard();
+        });
+        
+        document.querySelector(<span class="string">'#dateFromFilter'</span>).addEventListener(<span class="string">'change'</span>, (e) => {
+            <span class="keyword">this</span>.filters.dateFrom = e.target.value;
+            <span class="keyword">this</span>.updateDashboard();
+        });
+    }
+    
+    <span class="comment">// Actualizar dashboard con filtros</span>
+    updateDashboard() {
+        <span class="keyword">this</span>.sales = <span class="keyword">this</span>.applyFilters();
+        <span class="keyword">this</span>.renderKPIs();
+        <span class="keyword">this</span>.renderSalesChart();
+        <span class="keyword">this</span>.renderTopProducts();
+    }
+    
+    <span class="comment">// Refrescar datos</span>
+    <span class="keyword">async</span> refreshData() {
+        <span class="keyword">try</span> {
+            <span class="keyword">const</span> sales = <span class="keyword">await</span> <span class="keyword">this</span>.fetchSales();
+            <span class="keyword">this</span>.sales = sales;
+            <span class="keyword">this</span>.updateDashboard();
+        } <span class="keyword">catch</span> (error) {
+            console.error(<span class="string">'Error refreshing data:'</span>, error);
+        }
+    }
+    
+    <span class="comment">// Exportar reporte a CSV</span>
+    exportToCSV() {
+        <span class="keyword">const</span> headers = [<span class="string">'Fecha'</span>, <span class="string">'ID Orden'</span>, <span class="string">'Cliente'</span>, <span class="string">'Total'</span>, <span class="string">'Estado'</span>];
+        
+        <span class="keyword">const</span> rows = <span class="keyword">this</span>.sales.map(sale => [
+            <span class="keyword">this</span>.formatDate(sale.date),
+            sale.id,
+            sale.customerName,
+            sale.total.toFixed(2),
+            sale.status
+        ]);
+        
+        <span class="keyword">let</span> csvContent = headers.join(<span class="string">','</span>) + <span class="string">'\\n'</span>;
+        csvContent += rows.map(row => row.join(<span class="string">','</span>)).join(<span class="string">'\\n'</span>);
+        
+        <span class="comment">// Descargar archivo</span>
+        <span class="keyword">const</span> blob = <span class="keyword">new</span> Blob([csvContent], { type: <span class="string">'text/csv'</span> });
+        <span class="keyword">const</span> url = URL.createObjectURL(blob);
+        <span class="keyword">const</span> a = document.createElement(<span class="string">'a'</span>);
+        a.href = url;
+        a.download = \`ventas_\${<span class="keyword">new</span> Date().toISOString().split(<span class="string">'T'</span>)[0]}.csv\`;
+        a.click();
+    }
+    
+    <span class="comment">// Utilidades</span>
+    formatCurrency(amount) {
+        <span class="keyword">return new</span> Intl.NumberFormat(<span class="string">'es-AR'</span>, {
+            style: <span class="string">'currency'</span>,
+            currency: <span class="string">'ARS'</span>
+        }).format(amount);
+    }
+    
+    formatDate(dateStr) {
+        <span class="keyword">return new</span> Date(dateStr).toLocaleDateString(<span class="string">'es-AR'</span>, {
+            day: <span class="string">'2-digit'</span>,
+            month: <span class="string">'2-digit'</span>,
+            year: <span class="string">'numeric'</span>
+        });
+    }
+    
+    showLoading() {
+        document.querySelector(<span class="string">'#loading'</span>).style.display = <span class="string">'flex'</span>;
+    }
+    
+    hideLoading() {
+        document.querySelector(<span class="string">'#loading'</span>).style.display = <span class="string">'none'</span>;
+    }
+    
+    showError(message) {
+        document.querySelector(<span class="string">'#error'</span>).textContent = message;
+        document.querySelector(<span class="string">'#error'</span>).style.display = <span class="string">'block'</span>;
+    }
+}
+
+<span class="comment">// Inicializar dashboard</span>
+<span class="keyword">const</span> dashboard = <span class="keyword">new</span> SalesDashboard();
+dashboard.init();
+
+<span class="comment">// Botón de exportar</span>
+document.querySelector(<span class="string">'#exportBtn'</span>).addEventListener(<span class="string">'click'</span>, () => {
+    dashboard.exportToCSV();
+});</code></pre>
+</div>
+
+<div class="section">
+<h2>5. SISTEMA DE BÚSQUEDA Y FILTROS AVANZADO</h2>
+
+<div class="work-example">
+<h4>🏢 Caso Real: Buscador de Productos con Filtros Múltiples</h4>
+<p>Combina: <strong>Debounce, Filter, Map, RegEx, Event Delegation, URL Parameters</strong></p>
+</div>
+
+<pre><code><span class="comment">// search.js - Sistema de búsqueda avanzado</span>
+<span class="keyword">class</span> ProductSearch {
+    <span class="keyword">constructor</span>() {
+        <span class="keyword">this</span>.allProducts = [];
+        <span class="keyword">this</span>.filteredProducts = [];
+        <span class="keyword">this</span>.filters = {
+            search: <span class="string">''</span>,
+            category: <span class="string">'all'</span>,
+            priceMin: 0,
+            priceMax: <span class="keyword">Infinity</span>,
+            inStock: <span class="keyword">false</span>,
+            rating: 0,
+            sortBy: <span class="string">'relevance'</span> <span class="comment">// relevance, price-asc, price-desc, rating</span>
+        };
+        <span class="keyword">this</span>.currentPage = 1;
+        <span class="keyword">this</span>.itemsPerPage = 20;
+    }
+    
+    <span class="keyword">async</span> init() {
+        <span class="comment">// Cargar productos</span>
+        <span class="keyword">this</span>.allProducts = <span class="keyword">await</span> <span class="keyword">this</span>.loadProducts();
+        
+        <span class="comment">// Leer filtros desde URL</span>
+        <span class="keyword">this</span>.loadFiltersFromURL();
+        
+        <span class="comment">// Aplicar filtros iniciales</span>
+        <span class="keyword">this</span>.applyFilters();
+        
+        <span class="comment">// Configurar event listeners</span>
+        <span class="keyword">this</span>.setupSearchInput();
+        <span class="keyword">this</span>.setupFilterControls();
+    }
+    
+    <span class="keyword">async</span> loadProducts() {
+        <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(<span class="string">'/api/products'</span>);
+        <span class="keyword">return</span> response.json();
+    }
+    
+    <span class="comment">// Debounce para búsqueda (esperar a que termine de escribir)</span>
+    debounce(func, delay) {
+        <span class="keyword">let</span> timeout;
+        <span class="keyword">return function</span>(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(<span class="keyword">this</span>, args), delay);
+        };
+    }
+    
+    setupSearchInput() {
+        <span class="keyword">const</span> searchInput = document.querySelector(<span class="string">'#searchInput'</span>);
+        
+        <span class="comment">// Usar debounce para no buscar en cada letra</span>
+        <span class="keyword">const</span> debouncedSearch = <span class="keyword">this</span>.debounce((value) => {
+            <span class="keyword">this</span>.filters.search = value;
+            <span class="keyword">this</span>.applyFilters();
+            <span class="keyword">this</span>.updateURL();
+        }, 300);
+        
+        searchInput.addEventListener(<span class="string">'input'</span>, (e) => {
+            debouncedSearch(e.target.value);
+        });
+    }
+    
+    setupFilterControls() {
+        <span class="comment">// Filtro de categoría</span>
+        document.querySelector(<span class="string">'#categorySelect'</span>).addEventListener(<span class="string">'change'</span>, (e) => {
+            <span class="keyword">this</span>.filters.category = e.target.value;
+            <span class="keyword">this</span>.applyFilters();
+            <span class="keyword">this</span>.updateURL();
+        });
+        
+        <span class="comment">// Filtro de precio</span>
+        document.querySelector(<span class="string">'#priceMin'</span>).addEventListener(<span class="string">'change'</span>, (e) => {
+            <span class="keyword">this</span>.filters.priceMin = parseFloat(e.target.value) || 0;
+            <span class="keyword">this</span>.applyFilters();
+        });
+        
+        document.querySelector(<span class="string">'#priceMax'</span>).addEventListener(<span class="string">'change'</span>, (e) => {
+            <span class="keyword">this</span>.filters.priceMax = parseFloat(e.target.value) || <span class="keyword">Infinity</span>;
+            <span class="keyword">this</span>.applyFilters();
+        });
+        
+        <span class="comment">// Checkbox de stock</span>
+        document.querySelector(<span class="string">'#inStockOnly'</span>).addEventListener(<span class="string">'change'</span>, (e) => {
+            <span class="keyword">this</span>.filters.inStock = e.target.checked;
+            <span class="keyword">this</span>.applyFilters();
+        });
+        
+        <span class="comment">// Ordenamiento</span>
+        document.querySelector(<span class="string">'#sortBy'</span>).addEventListener(<span class="string">'change'</span>, (e) => {
+            <span class="keyword">this</span>.filters.sortBy = e.target.value;
+            <span class="keyword">this</span>.sortProducts();
+            <span class="keyword">this</span>.renderProducts();
+        });
+    }
+    
+    <span class="comment">// Aplicar todos los filtros</span>
+    applyFilters() {
+        <span class="keyword">let</span> results = [...<span class="keyword">this</span>.allProducts];
+        
+        <span class="comment">// Filtro de búsqueda de texto</span>
+        <span class="keyword">if</span> (<span class="keyword">this</span>.filters.search) {
+            <span class="keyword">const</span> searchRegex = <span class="keyword">new</span> RegExp(<span class="keyword">this</span>.filters.search, <span class="string">'i'</span>);
+            results = results.filter(product =>
+                searchRegex.test(product.name) ||
+                searchRegex.test(product.description) ||
+                searchRegex.test(product.sku)
+            );
+        }
+        
+        <span class="comment">// Filtro de categoría</span>
+        <span class="keyword">if</span> (<span class="keyword">this</span>.filters.category !== <span class="string">'all'</span>) {
+            
